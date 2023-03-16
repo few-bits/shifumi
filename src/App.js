@@ -1,49 +1,50 @@
-import React, { useState, useEffect } from 'react';
-import { MODE_AWAITING, MODE_RESULTS } from './constants.js';
-import { isTheLastMove, isPlayerMoved, getRandomValue, findWinner } from './utils.js';
-import Player from './Player.jsx';
-import './App.css';
+import React, { useEffect, useRef } from 'react';
+import { Parallax, ParallaxLayer } from '@react-spring/parallax'
+
+import Game from './components/Game';
+import styles from './app.module.css';
+import { LAYERS, BASE_LEVEL } from './constants';
+
+const Page = ({ offset, gradient }) => (
+  <>
+    <ParallaxLayer offset={offset}>
+      <div className={`${styles.stage} ${styles[gradient]}`} />
+    </ParallaxLayer>
+
+    <ParallaxLayer className={`${styles.text} ${styles.layer}`} offset={offset} speed={0.3}>
+      <span>{LAYERS[offset]}</span>
+    </ParallaxLayer>
+  </>
+)
 
 function App() {
-  const [mode, setMode] = useState(MODE_AWAITING);
-  const [playerMove, setPlayerMove] = useState(null);
-  const [computerMove, setcomputerMove] = useState(null);
-  const [winner, setWinner] = useState(null);
-  const [score, setScore] = useState(0);
+  const parallax = useRef(null);
 
-  useEffect(() => {
-    if (isTheLastMove(playerMove, computerMove)) {
-      setMode(MODE_RESULTS);
-      const newWinner = findWinner(playerMove, computerMove)
-      setWinner(newWinner)
-      let diff = newWinner === 'Player' ? 1 : -1;
-      diff = newWinner === 'Tie' ? 0 : diff;
-      setScore(prevScore => prevScore + diff);
-
-
-      const resetTimeout = setTimeout(() => {
-        setWinner(null);
-        setMode(MODE_AWAITING);
-        setPlayerMove(null);
-        setcomputerMove(null);
-      }, 4000);
-
-      return () => { clearTimeout(resetTimeout) }
-    } else if (isPlayerMoved(playerMove, computerMove)) {
-      setcomputerMove(getRandomValue());
+  const scrollTo = (to) => {
+    if (parallax.current) {
+      parallax.current.scrollTo(to);
     }
-  }, [playerMove, computerMove])
+  }
+
+  useEffect(() => { scrollTo(BASE_LEVEL) }, [])
 
   return (
-    <div className="App">
-      <div>score:{score}</div>
-      <div>mode:{mode}</div>
-      <div>winner:{winner}</div>
-
-      <Player
-        moveHandler={setPlayerMove}
-        playerMove={playerMove}
-      />
+    <div className={styles.App}>
+      <Parallax
+        className={styles.parallax}
+        ref={parallax}
+        pages={3}
+        style={{
+          overflow: 'hidden',
+          top: 0,
+          left: 0
+        }}
+      >
+        <Page offset={0} gradient="cosmos" />
+        <Page offset={1} gradient="sky" />
+        <Page offset={2} gradient="earth" />
+      </Parallax>
+      <Game scrollTo={scrollTo} />
     </div>
   );
 }

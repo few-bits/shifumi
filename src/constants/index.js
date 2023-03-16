@@ -11,4 +11,7 @@ export const WEIGHT = {
     [VALUE_ROCK]: 0,
     [VALUE_PAPER]: 1,
     [VALUE_SCISSOR]: 2,
-}
+};
+
+export const LAYERS = ['Cosmos', 'Sky', 'Earth'];
+export const BASE_LEVEL = LAYERS.length;
