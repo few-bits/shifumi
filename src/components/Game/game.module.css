@@ -8,4 +8,5 @@
 .text {
     pointer-events: none;
     user-select: none;
+    font-size: 250%;
 }

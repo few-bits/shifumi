@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { MODE_AWAITING, MODE_RESULTS, BASE_LEVEL } from '../../constants';
+import { MODE_AWAITING, MODE_RESULTS, MODE_FINISHED, BASE_LEVEL, MAX_SCORE } from '../../constants';
 import { isTheLastMove, isPlayerMoved, getRandomValue, findWinner } from '../../utils';
 import Choose from '../Choose';
 import styles from './game.module.css'
@@ -14,20 +14,20 @@ function Game({ scrollTo }) {
 
   useEffect(() => {
     if (isTheLastMove(playerMove, computerMove)) {
-      setMode(MODE_RESULTS);
       const newWinner = findWinner(playerMove, computerMove)
-      setWinner(newWinner)
+      setWinner(newWinner);
       let diff = newWinner === 'Player' ? 1 : -1;
       diff = newWinner === 'Tie' ? 0 : diff;
       setScore(prevScore => prevScore + diff);
+      setMode(MODE_RESULTS);
 
 
       const resetTimeout = setTimeout(() => {
         setWinner(null);
-        setMode(MODE_AWAITING);
+        setMode(prev => prev !== MODE_FINISHED ? MODE_AWAITING : prev);
         setPlayerMove(null);
         setcomputerMove(null);
-      }, 4000);
+      }, 1000);
 
       return () => { clearTimeout(resetTimeout) }
     } else if (isPlayerMoved(playerMove, computerMove)) {
@@ -36,14 +36,21 @@ function Game({ scrollTo }) {
   }, [playerMove, computerMove])
 
   useEffect(() => {
-    scrollTo(score >= 0 ? (BASE_LEVEL-score) : BASE_LEVEL)
-  }, [score, scrollTo])
+    const nextLevel = score >= 0 ? (BASE_LEVEL-score) : BASE_LEVEL;
+    console.log('nextLevel', nextLevel);
+    scrollTo(nextLevel);
+    if (score >= MAX_SCORE) {
+      setMode(MODE_FINISHED);
+    }
+  }, [score])
 
   return (
     <div className={styles.game}>
-      <div className={styles.text}>Score:{score}/2</div>
-      <div className={styles.text}>Mode:{mode}</div>
-      <div className={styles.text}>Winner:{winner}</div>
+      <div className={styles.text}>Score: {score}/{MAX_SCORE}</div>
+      <div className={styles.text}>Winner: { mode === MODE_AWAITING ? `${mode}...` : winner}</div>
+      {mode === MODE_FINISHED && (
+        <div className={styles.text}>Game Over, You Win!</div>
+      )}
 
       <Choose
         moveHandler={setPlayerMove}

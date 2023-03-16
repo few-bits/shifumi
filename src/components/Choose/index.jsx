@@ -1,8 +1,8 @@
-import { VALUES, MODE_RESULTS } from '../../constants'
+import { VALUES, MODE_RESULTS, MODE_FINISHED } from '../../constants'
 import styles from './choose.module.css'
 
 function Player({ moveHandler, playerMove, mode }) {
-    const disabled = mode === MODE_RESULTS;
+    const disabled = [MODE_FINISHED, MODE_RESULTS].includes(mode);
 
     return (
         <div className={styles.chooseWrapper}>

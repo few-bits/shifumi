@@ -10,7 +10,7 @@
     cursor: pointer;
     background-color: #fff transparent;
     margin: 10px;
-    border: 2px solid #fff;
+    /* border: 2px solid #fff; */
     border-radius: 50%;
 }
 
@@ -49,27 +49,30 @@
 
 
 .choose.rock{
-    background-image: url('img/rock.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 68px;
-    height: 68px;
+    background-image: url('img/circle.png'), url('img/rock.png');
+    background-size: 100%, 50%;
+    background-position: center, center;
+    background-repeat: no-repeat, no-repeat;
+    width: 100px;
+    height: 100px;
 }
 
 .choose.paper{
-    background-image: url('img/paper.png');
+    background-image: url('img/circle.png'), url('img/paper.png');
+    background-size: 100%, 50%;
     background-position: center;
     background-repeat: no-repeat;
-    width: 68px;
-    height: 68px;
+    width: 100px;
+    height: 100px;
 }
 
 .choose.scissors {
-    background-image: url('img/scissors.png');
+    background-image: url('img/circle.png'), url('img/scissors.png');
+    background-size: 100%, 50%;
     background-position: center;
     background-repeat: no-repeat;
-    width: 68px;
-    height: 68px;
+    width: 100px;
+    height: 100px;
 }
 
 .choose.disabled {

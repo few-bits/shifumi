@@ -1,5 +1,6 @@
 export const MODE_AWAITING = 'awaiting';
 export const MODE_RESULTS = 'results';
+export const MODE_FINISHED = 'finished';
 
 export const VALUE_ROCK = 'rock';
 export const VALUE_PAPER = 'paper';
@@ -14,4 +15,5 @@ export const WEIGHT = {
 };
 
 export const LAYERS = ['Cosmos', 'Sky', 'Earth'];
-export const BASE_LEVEL = LAYERS.length;
+export const BASE_LEVEL = LAYERS.length - 1;
+export const MAX_SCORE = 2 
