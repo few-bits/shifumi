@@ -1,7 +1,7 @@
-import { VALUES, MODE_RESULTS, MODE_FINISHED } from '../../constants'
-import styles from './choose.module.css'
+import { VALUES, MODE_RESULTS, MODE_FINISHED } from '../../constants';
+import styles from './choose.module.css';
 
-function Player({ moveHandler, playerMove, mode }) {
+function Choose({ moveHandler, mode }) {
     const disabled = [MODE_FINISHED, MODE_RESULTS].includes(mode);
 
     return (
@@ -18,4 +18,4 @@ function Player({ moveHandler, playerMove, mode }) {
     )
 }
 
-export default Player;
+export default Choose;

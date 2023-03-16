@@ -44,19 +44,31 @@ function Game({ scrollTo }) {
     }
   }, [score])
 
+  const playAgain = () => {
+    setWinner(null);
+    setMode(MODE_AWAITING);
+    setPlayerMove(null);
+    setcomputerMove(null);
+    setScore(0);
+  } 
+
   return (
     <div className={styles.game}>
-      <div className={styles.text}>Score: {score}/{MAX_SCORE}</div>
-      <div className={styles.text}>Winner: { mode === MODE_AWAITING ? `${mode}...` : winner}</div>
-      {mode === MODE_FINISHED && (
-        <div className={styles.text}>Game Over, You Win!</div>
-      )}
-
+      <div>
+        <div className={styles.text}>Score: {score}/{MAX_SCORE}</div>
+        <div className={styles.text}>Winner: { mode === MODE_AWAITING ? `${mode}...` : winner}</div>
+        {mode === MODE_FINISHED && (
+          <div className={styles.text}>Game Over, You Win!</div>
+        )}
+      </div>
       <Choose
         moveHandler={setPlayerMove}
         playerMove={playerMove}
         mode={mode}
       />
+      {mode === MODE_FINISHED && (
+        <div className={styles.playAgain} onClick={playAgain}>Play again</div>
+      )}
     </div>
   );
 }
