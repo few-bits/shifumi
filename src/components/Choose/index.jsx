@@ -1,20 +1,21 @@
 import { VALUES, MODE_RESULTS, MODE_FINISHED } from '../../constants';
-import styles from './choose.module.css';
+import { ChooseWrapper, StyledChoose } from './styled';
 
 function Choose({ moveHandler, mode }) {
     const disabled = [MODE_FINISHED, MODE_RESULTS].includes(mode);
 
     return (
-        <div className={styles.chooseWrapper}>
+        <ChooseWrapper>
             {VALUES.map(value => (
-                <div
-                    className={`${styles.choose} ${styles[value]} ${disabled ? styles.disabled : ''}`}
+                <StyledChoose
+                    value={value}
+                    disabled={disabled}
                     key={value}
                     title={value}
                     onClick={() => !disabled && moveHandler(value)}
                 />
             ))}
-        </div>
+        </ChooseWrapper>
     )
 }
 

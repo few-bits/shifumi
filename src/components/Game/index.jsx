@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { MODE_AWAITING, MODE_RESULTS, MODE_FINISHED, BASE_LEVEL, MAX_SCORE } from '../../constants';
 import { isTheLastMove, isPlayerMoved, getRandomValue, findWinner } from '../../utils';
 import Choose from '../Choose';
-import styles from './game.module.css'
+import { Text, StyledGame, PlayAgain } from './styled';
 
 function Game({ scrollTo }) {
   const [mode, setMode] = useState(MODE_AWAITING);
@@ -41,7 +41,7 @@ function Game({ scrollTo }) {
     if (score >= MAX_SCORE) {
       setMode(MODE_FINISHED);
     }
-  }, [score])
+  }, [score, scrollTo])
 
   const playAgain = () => {
     setWinner(null);
@@ -52,12 +52,12 @@ function Game({ scrollTo }) {
   } 
 
   return (
-    <div className={styles.game}>
+    <StyledGame>
       <div>
-        <div className={styles.text}>Score: {score}/{MAX_SCORE}</div>
-        <div className={styles.text}>Winner: { mode === MODE_AWAITING ? `${mode}...` : winner}</div>
+        <Text>Score: {score}/{MAX_SCORE}</Text>
+        <Text>Winner: { mode === MODE_AWAITING ? `${mode}...` : winner}</Text>
         {mode === MODE_FINISHED && (
-          <div className={styles.text}>Game Over, You Win!</div>
+          <Text>Game Over, You Win!</Text>
         )}
       </div>
       <Choose
@@ -66,9 +66,9 @@ function Game({ scrollTo }) {
         mode={mode}
       />
       {mode === MODE_FINISHED && (
-        <div className={styles.playAgain} onClick={playAgain}>Play again</div>
+        <PlayAgain onClick={playAgain}>Play again</PlayAgain>
       )}
-    </div>
+    </StyledGame>
   );
 }
 
