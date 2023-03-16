@@ -10,9 +10,9 @@ export const getRandomValue = () => {
 
 }
 
+// Please check the readme file with solution describe
 export const findWinner = (playerMove, computerMove) => {
     if (playerMove === computerMove) return 'Tie';
-    console.log({ playerMove, computerMove });
     const p1 = WEIGHT[playerMove];
     const p2 = WEIGHT[computerMove];
 

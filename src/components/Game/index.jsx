@@ -37,7 +37,6 @@ function Game({ scrollTo }) {
 
   useEffect(() => {
     const nextLevel = score >= 0 ? (BASE_LEVEL-score) : BASE_LEVEL;
-    console.log('nextLevel', nextLevel);
     scrollTo(nextLevel);
     if (score >= MAX_SCORE) {
       setMode(MODE_FINISHED);
