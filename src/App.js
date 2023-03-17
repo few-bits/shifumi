@@ -58,6 +58,7 @@ const Cloud2 = styled.img`width: 350px; margin-left: 10%; height: 150px; top: 0;
 const Cloud51 = styled.img`width: 550px; margin-left: 5%; height: 150px; top: 0;`;
 const Cloud52 = styled.img`width: 650px; margin-left: 10%; height: 150px; top: 0;`;
 const Cloud53 = styled.img`margin-left: 25%; top: 0;`;
+const Sun = styled.img`margin-left: 0;`;
 
 const Page = ({ offset, gradient }) => (
   <>
@@ -85,6 +86,9 @@ const Page = ({ offset, gradient }) => (
     </LayerName>
     <ParallaxLayer offset={2} speed={-0.3}>
       <Cloud53 src="./Cloud_5.png" />
+    </ParallaxLayer>
+    <ParallaxLayer offset={1.4} speed={-0.3} opacity={0.6}>
+      <Sun src="./Sun.png" />
     </ParallaxLayer>
   </>
 )
