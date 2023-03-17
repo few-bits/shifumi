@@ -1,4 +1,4 @@
-import { VALUES, WEIGHT } from '../constants';
+import { VALUES, WEIGHT, PARTICIPANT_COMPUTER, PARTICIPANT_USER } from '../constants';
 
 export const isTheLastMove = (playerMove, computerMove) => playerMove !== null && computerMove !== null;
 
@@ -17,8 +17,8 @@ export const findWinner = (playerMove, computerMove) => {
     const p2 = WEIGHT[computerMove];
 
     if (p1 - p2 === 1 || p1 - p2 === -2) {
-        return 'Player';
+        return PARTICIPANT_USER;
     }
 
-    return 'Computer';
+    return PARTICIPANT_COMPUTER;
 }

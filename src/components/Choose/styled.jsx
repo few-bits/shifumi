@@ -36,7 +36,7 @@ export const StyledChoose = styled.div`
     switch (props.value) {
         case "rock":
             return css`
-                background-image: url(${circle}), url('${rock}');
+                background-image: url('${circle}'), url('${rock}');
             `;
         case "paper":
             return css`

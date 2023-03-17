@@ -1,3 +1,5 @@
+export const PARTICIPANT_USER = 'user';
+export const PARTICIPANT_COMPUTER = 'computer';
 export const MODE_AWAITING = 'awaiting';
 export const MODE_RESULTS = 'results';
 export const MODE_FINISHED = 'finished';

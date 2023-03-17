@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
-import { MODE_AWAITING, MODE_RESULTS, MODE_FINISHED, BASE_LEVEL, MAX_SCORE } from '../../constants';
+import { MODE_AWAITING, MODE_RESULTS, MODE_FINISHED, BASE_LEVEL, MAX_SCORE, PARTICIPANT_COMPUTER, PARTICIPANT_USER } from '../../constants';
 import { isTheLastMove, isPlayerMoved, getRandomValue, findWinner } from '../../utils';
 import Choose from '../Choose';
-import { Text, StyledGame, PlayAgain } from './styled';
+import { Text, StyledGame, PlayAgain, Info, Selection, Center } from './styled';
 
 function Game({ scrollTo }) {
   const [mode, setMode] = useState(MODE_AWAITING);
@@ -16,7 +16,7 @@ function Game({ scrollTo }) {
     if (isTheLastMove(playerMove, computerMove)) {
       const newWinner = findWinner(playerMove, computerMove)
       setWinner(newWinner);
-      let diff = newWinner === 'Player' ? 1 : -1;
+      let diff = newWinner === PARTICIPANT_USER ? 1 : -1;
       diff = newWinner === 'Tie' ? 0 : diff;
       setScore(prevScore => prevScore + diff);
       setMode(MODE_RESULTS);
@@ -27,7 +27,7 @@ function Game({ scrollTo }) {
         setMode(prev => prev !== MODE_FINISHED ? MODE_AWAITING : prev);
         setPlayerMove(null);
         setcomputerMove(null);
-      }, 1000);
+      }, 5000);
 
       return () => { clearTimeout(resetTimeout) }
     } else if (isPlayerMoved(playerMove, computerMove)) {
@@ -53,13 +53,16 @@ function Game({ scrollTo }) {
 
   return (
     <StyledGame>
-      <div>
-        <Text>Score: {score}/{MAX_SCORE}</Text>
-        <Text>Winner: { mode === MODE_AWAITING ? `${mode}...` : winner}</Text>
-        {mode === MODE_FINISHED && (
-          <Text>Game Over, You Win!</Text>
-        )}
-      </div>
+      <Info>
+        <Selection participant={PARTICIPANT_COMPUTER} value={computerMove} winner={winner}></Selection>
+        <Center>
+          <Text>Score: {score}/{MAX_SCORE}</Text>
+          {mode === MODE_FINISHED && (
+            <Text>Game Over, You Win!</Text>
+          )}
+        </Center>
+        <Selection participant={PARTICIPANT_USER} value={playerMove} winner={winner}></Selection>
+      </Info>
       <Choose
         moveHandler={setPlayerMove}
         playerMove={playerMove}

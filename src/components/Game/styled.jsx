@@ -1,9 +1,20 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import circle from '../Choose/img/circle.png';
+import rock from '../Choose/img/rock.png';
+import paper from '../Choose/img/paper.png';
+import scissors from '../Choose/img/scissors.png';
 
 export const Text = styled.div`
     pointer-events: none;
     user-select: none;
-    font-size: 250%;
+    font-size: 150%;
+`;
+
+export const Center = styled.div`
+    width: 230px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `;
 
 export const PlayAgain = styled.div`
@@ -35,4 +46,64 @@ export const StyledGame = styled.div`
     transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
+`;
+
+export const Info = styled.div`
+    display: flex;
+    justify-content: center;
+`;
+
+export const Selection = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    background-size: 100%, 50%;
+    background-position: center, center;
+    background-repeat: no-repeat, no-repeat;
+    opacity: 0.8;
+    border-radius: 50%;
+    transition: all 0.5s;
+    ${(props) => {
+    switch (props.value) {
+        case "rock":
+            return css`
+                background-image: url('${circle}'), url('${rock}');
+                background-color: #fff;
+            `;
+        case "paper":
+            return css`
+                background-image: url('${circle}'), url('${paper}');
+                background-color: #fff;
+            `;
+        case "scissors":
+            return css`
+                background-image: url('${circle}'), url('${scissors}');
+                background-color: #fff;
+            `;
+        default:
+            return css`
+                background-image: url('${circle}');
+            `;
+    }}}
+
+    &:before {
+        display: block;
+        content: "${(props) => props.participant}";
+        position: absolute;
+        top: -50px;
+        user-select: none;
+        font-size: 250%;
+
+        ${(props) => {
+            if (props.participant === props.winner) {
+                return css`
+                    text-shadow: 0 3px 5px #c4b59d, 0px -2px 1px #d2e241;
+                `
+            }
+        }
+    }
+
+    
 `;
