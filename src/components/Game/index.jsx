@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { MODE_AWAITING, MODE_RESULTS, MODE_FINISHED, BASE_LEVEL, MAX_SCORE, PARTICIPANT_COMPUTER, PARTICIPANT_USER } from '../../constants';
 import { isTheLastMove, isPlayerMoved, getRandomValue, findWinner } from '../../utils';
 import Choose from '../Choose';
+import AudioButton from '../AudioButton';
 import { Text, StyledGame, PlayAgain, Info, Selection, Center } from './styled';
 
 function Game({ scrollTo }) {
@@ -71,6 +72,7 @@ function Game({ scrollTo }) {
       {mode === MODE_FINISHED && (
         <PlayAgain onClick={playAgain}>Play again</PlayAgain>
       )}
+      <AudioButton />
     </StyledGame>
   );
 }
