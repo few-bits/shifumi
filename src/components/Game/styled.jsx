@@ -15,6 +15,7 @@ export const Center = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 `;
 
 export const PlayAgain = styled.div`
@@ -99,10 +100,10 @@ export const Selection = styled.div`
         ${(props) => {
             if (props.participant === props.winner) {
                 return css`
-                    text-shadow: 0 3px 5px #c4b59d, 0px -2px 1px #d2e241;
+                    text-shadow: 0 3px 5px #c4b59d, 0px -2px 1px #fff;
                 `
             }
-        }
+        }}
     }
 
     
